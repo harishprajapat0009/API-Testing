@@ -1,0 +1,26 @@
+const express = require('express');
+
+const routes = express.Router();
+
+const homeCtl = require('../controllers/HomeControolers');
+
+const passport = require('passport');
+
+routes.get('/', passport.authenticate('jwt', {failureRedirect : '/unauthorised'}) , homeCtl.getData);
+
+routes.get('/unauthorised', async (req, res) => {
+    return res.status(400).json({msg : "User unauthorised"})
+})
+
+routes.post('/addData', passport.authenticate('jwt', {failureRedirect : '/unauthorised'}) , homeCtl.addData);
+
+routes.delete('/deleteData/:id', passport.authenticate('jwt', {failureRedirect : '/unauthorised'}) , homeCtl.deleteData);
+
+routes.get('/getsingleData', passport.authenticate('jwt', {failureRedirect : '/unauthorised'}) , homeCtl.getsingleData);
+
+routes.put('/updateData', passport.authenticate('jwt', {failureRedirect : '/unauthorised'}) , homeCtl.updateData);
+
+// Auth Routes
+routes.use('/auth', require('./AuthRoutes'))
+
+module.exports = routes;
