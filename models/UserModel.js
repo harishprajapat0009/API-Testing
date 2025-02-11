@@ -32,6 +32,10 @@ const UserSchema = mongoose.Schema({
         type : String,
         required : true
     },
+    status : {
+        type : Boolean,
+        default : true
+    },
     userImage : {
         type : String,
         required : true

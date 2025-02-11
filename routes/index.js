@@ -22,6 +22,10 @@ routes.get('/getsingleData', passport.authenticate('jwt', {failureRedirect : '/u
 
 routes.put('/updateData', passport.authenticate('jwt', {failureRedirect : '/unauthorised'}), UserModel.uploadimageFile , homeCtl.updateData);
 
+routes.get('/changeStatus', passport.authenticate('jwt', {failureRedirect : '/unauthorised'}), homeCtl.changeStatus);
+
+routes.post('/multiDelete', homeCtl.multiDelete);
+
 // Auth Routes
 routes.use('/auth', require('./AuthRoutes'))
 
